@@ -14,7 +14,6 @@
           </div>
         </q-carousel-slide>
       </q-carousel>
-
       <div class="cardwrapper q-pa-md row items-start q-gutter-md">
         <div v-for="item in itemList" :key="item.id" v-bind="item">
           <q-card class="my-card bg-secondary text-white">
