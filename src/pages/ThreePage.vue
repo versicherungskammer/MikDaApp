@@ -430,7 +430,6 @@ function init() {
 
   // Renderer
   const canvas = document.querySelector("#webgl");
-  const container = document.body;
 
   renderer = new THREE.WebGLRenderer({
     canvas: canvas,
