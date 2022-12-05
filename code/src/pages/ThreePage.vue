@@ -1,8 +1,8 @@
 <template>
   <div class="q-pa-md">
-    <q-badge color="secondary"> Speed: {{ standard }}</q-badge>
+    <q-badge color="secondary"> Speed: {{ speed }}</q-badge>
 
-    <q-slider v-model="standard" :min="1" :max="3000" />
+    <q-slider v-model="speed" :min="1" :max="100" />
   </div>
 
   <canvas id="webgl"></canvas>
@@ -11,9 +11,9 @@
 <script setup>
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, ref } from "vue";
+const speed = ref(20);
 
-const standard = ref(1000);
 function planesFromMesh(vertices, indices) {
   // creates a clipping volume from a convex triangular mesh
   // specified by the arrays 'vertices' and 'indices'
@@ -293,7 +293,7 @@ const transform = new THREE.Matrix4(),
 
 function animate() {
   const currentTime = Date.now(),
-    time = (currentTime - startTime) / standard.value;
+    time = ((currentTime - startTime) / 10000) * speed.value;
 
   requestAnimationFrame(animate);
 
