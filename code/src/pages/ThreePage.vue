@@ -12,45 +12,12 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { onMounted, ref } from "vue";
+import ThreeObj from "/src/services/graphics/threeObject.js";
+
 const speed = ref(20);
 
-function planesFromMesh(vertices, indices) {
-  // creates a clipping volume from a convex triangular mesh
-  // specified by the arrays 'vertices' and 'indices'
-
-  const n = indices.length / 3,
-    result = new Array(n);
-
-  for (let i = 0, j = 0; i < n; ++i, j += 3) {
-    const a = vertices[indices[j]],
-      b = vertices[indices[j + 1]],
-      c = vertices[indices[j + 2]];
-
-    result[i] = new THREE.Plane().setFromCoplanarPoints(a, b, c);
-  }
-
-  return result;
-}
-
-function createPlanes(n) {
-  // creates an array of n uninitialized plane objects
-
-  const result = new Array(n);
-
-  for (let i = 0; i !== n; ++i) result[i] = new THREE.Plane();
-
-  return result;
-}
-
-function assignTransformedPlanes(planesOut, planesIn, matrix) {
-  // sets an array of existing planes to transformed 'planesIn'
-
-  for (let i = 0, n = planesIn.length; i !== n; ++i)
-    planesOut[i].copy(planesIn[i]).applyMatrix4(matrix);
-}
-
 function cylindricalPlanes(n, innerRadius) {
-  const result = createPlanes(n);
+  const result = ThreeObj.getCreatePlanes(n);
 
   for (let i = 0; i !== n; ++i) {
     const plane = result[i],
@@ -118,7 +85,7 @@ const Vertices = [
     new THREE.Vector3(0, -1, -Math.SQRT1_2),
   ],
   Indices = [0, 1, 2, 0, 2, 3, 0, 3, 1, 1, 3, 2],
-  Planes = planesFromMesh(Vertices, Indices),
+  Planes = ThreeObj.getPlanesFromMesh(Vertices, Indices),
   PlaneMatrices = Planes.map(planeToMatrix),
   GlobalClippingPlanes = cylindricalPlanes(5, 2.5),
   Empty = Object.freeze([]);
@@ -181,7 +148,7 @@ function init() {
     shininess: 100,
     side: THREE.DoubleSide,
     // Clipping setup:
-    clippingPlanes: createPlanes(Planes.length),
+    clippingPlanes: ThreeObj.getCreatePlanes(Planes.length),
     clipShadows: true,
   });
 
@@ -255,7 +222,7 @@ function init() {
   renderer.setSize(window.innerWidth, window.innerHeight - 55);
   window.addEventListener("resize", onWindowResize);
   // Clipping setup:
-  globalClippingPlanes = createPlanes(GlobalClippingPlanes.length);
+  globalClippingPlanes = ThreeObj.getCreatePlanes(GlobalClippingPlanes.length);
   renderer.clippingPlanes = Empty;
   renderer.localClippingEnabled = true;
 
@@ -307,7 +274,11 @@ function animate() {
   const bouncy = Math.cos(time * 0.5) * 0.5 + 0.7;
   transform.multiply(tmpMatrix.makeScale(bouncy, bouncy, bouncy));
 
-  assignTransformedPlanes(clipMaterial.clippingPlanes, Planes, transform);
+  ThreeObj.getAssignTransformedPlanes(
+    clipMaterial.clippingPlanes,
+    Planes,
+    transform
+  );
 
   const planeMeshes = volumeVisualization.children;
 
@@ -318,7 +289,7 @@ function animate() {
 
   transform.makeRotationY(time * 0.1);
 
-  assignTransformedPlanes(
+  ThreeObj.getAssignTransformedPlanes(
     globalClippingPlanes,
     GlobalClippingPlanes,
     transform
