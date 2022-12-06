@@ -116,14 +116,25 @@ const itemList = [
 }
 
 .cardwrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
-.my-card {
-  min-height: 40rem;
+  display: flex;
+  padding: 0px;
+  margin: 0px;
 }
 .cardPicture {
-  width: 29rem;
+  width: 25vw;
   height: 27rem;
+}
+@media (max-width: 1000px) {
+  .cardwrapper {
+    flex-direction: column;
+    padding: 0px;
+    margin: 0px;
+  }
+  .cardPicture {
+    width: 80vw;
+  }
+}
+.my-card {
+  min-height: 35rem;
 }
 </style>
