@@ -203,7 +203,7 @@ function init() {
   });
   renderer.shadowMap.enabled = true;
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth, window.innerHeight - 55);
+  renderer.setSize(window.innerWidth, window.innerHeight - 143);
   window.addEventListener("resize", onWindowResize);
   // Clipping setup:
   globalClippingPlanes = ThreeObj.getCreatePlanes(GlobalClippingPlanes.length);
@@ -227,7 +227,7 @@ function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
 
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(window.innerWidth, window.innerHeight - 143);
 }
 
 function setObjectWorldMatrix(object, matrix) {
