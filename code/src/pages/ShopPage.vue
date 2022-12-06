@@ -117,6 +117,7 @@ const itemList = [
 
 .cardwrapper {
   display: flex;
+  justify-content: center;
   padding: 0px;
   margin: 0px;
 }
