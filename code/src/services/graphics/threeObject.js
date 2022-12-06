@@ -47,8 +47,28 @@ const getAssignTransformedPlanes = (planesOut, planesIn, matrix) => {
   return assignTransformedPlanes(planesOut, planesIn, matrix);
 };
 
+const cylindricalPlanes = (n, innerRadius) => {
+  const result = getCreatePlanes(n);
+
+  for (let i = 0; i !== n; ++i) {
+    const plane = result[i],
+      angle = (i * Math.PI * 2) / n;
+
+    plane.normal.set(Math.cos(angle), 0, Math.sin(angle));
+
+    plane.constant = innerRadius;
+  }
+
+  return result;
+};
+
+const getCylindricalPlanes = (n, innerRadius) => {
+  return cylindricalPlanes(n, innerRadius);
+};
+
 export default {
   getPlanesFromMesh,
   getCreatePlanes,
   getAssignTransformedPlanes,
+  getCylindricalPlanes,
 };

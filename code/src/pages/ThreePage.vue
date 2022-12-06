@@ -13,23 +13,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { onMounted, ref } from "vue";
 import ThreeObj from "/src/services/graphics/threeObject.js";
-
 const speed = ref(20);
-
-function cylindricalPlanes(n, innerRadius) {
-  const result = ThreeObj.getCreatePlanes(n);
-
-  for (let i = 0; i !== n; ++i) {
-    const plane = result[i],
-      angle = (i * Math.PI * 2) / n;
-
-    plane.normal.set(Math.cos(angle), 0, Math.sin(angle));
-
-    plane.constant = innerRadius;
-  }
-
-  return result;
-}
 
 const planeToMatrix = (function () {
   // creates a matrix that aligns X/Y to a given plane
@@ -87,7 +71,7 @@ const Vertices = [
   Indices = [0, 1, 2, 0, 2, 3, 0, 3, 1, 1, 3, 2],
   Planes = ThreeObj.getPlanesFromMesh(Vertices, Indices),
   PlaneMatrices = Planes.map(planeToMatrix),
-  GlobalClippingPlanes = cylindricalPlanes(5, 2.5),
+  GlobalClippingPlanes = ThreeObj.getCylindricalPlanes(5, 2.5),
   Empty = Object.freeze([]);
 
 let camera,
