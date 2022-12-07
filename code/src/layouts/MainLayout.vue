@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-import { defineComponent, ref } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 const leftDrawerOpen = ref(false);
