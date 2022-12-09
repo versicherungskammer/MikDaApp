@@ -69,6 +69,12 @@ const linksList = [
     link: "three",
   },
   {
+    title: "Eye",
+    caption: "Three.js Eye",
+    icon: "visibility",
+    link: "eye",
+  },
+  {
     title: "Settings",
     caption: "Settings",
     icon: "settings",
