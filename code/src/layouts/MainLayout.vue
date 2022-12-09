@@ -74,6 +74,12 @@ const linksList = [
     icon: "settings",
     link: "settings",
   },
+  {
+    title: "Converter",
+    caption: "Kilomoters to Miles Converter",
+    icon: "calculate",
+    link: "converter",
+  },
 ];
 
 const toggleLeftDrawer = () => {
