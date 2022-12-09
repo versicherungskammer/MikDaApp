@@ -63,14 +63,8 @@ const linksList = [
     link: "shop",
   },
   {
-    title: "Three.js Testing",
-    caption: "Three.js",
-    icon: "forest",
-    link: "three",
-  },
-  {
-    title: "Eye",
-    caption: "Three.js Eye",
+    title: "Three.js Eye",
+    caption: "Open page Eye",
     icon: "visibility",
     link: "eye",
   },
@@ -86,9 +80,3 @@ const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 };
 </script>
-
-<style scoped>
-.darkModeButton {
-  padding-left: 1rem;
-}
-</style>
