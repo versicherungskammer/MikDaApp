@@ -34,3 +34,4 @@ yarn-error.log*
 .editorconfig
 .npmrc
 .vscode/
+yarn.lock
